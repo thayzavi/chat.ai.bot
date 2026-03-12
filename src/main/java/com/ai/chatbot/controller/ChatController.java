@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
 @Tag(name = "Chat", description = "Chat operation")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class ChatController {
 
     private final ChatService chatService;
