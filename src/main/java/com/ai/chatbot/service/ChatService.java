@@ -72,4 +72,9 @@ public class ChatService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public void updateConversationTitle(Conversation conversation, String title) {
+    conversation.setTitle(title);
+    conversationRepository.save(conversation);
+}
 }

@@ -94,5 +94,6 @@ public class AIService {
             System.err.println("Erro na API: " + e.getMessage());
             return "Erro ao conectar com a IA.";
         }
+
     }
 }
