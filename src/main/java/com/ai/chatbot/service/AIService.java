@@ -31,12 +31,41 @@ public class AIService {
                 "model", model,
                 "messages", List.of(
                         Map.of("role", "system", "content",
-                                "Você é um assistente virtual de atendimento ao cliente, educado, " +
-                                        "claro e objetivo. Responda sempre no idioma." + language),
+                                "Você é um assistente virtual moderno, inteligente e objetivo. " +
+                                "Responda de forma clara, útil e profissional. " +
+                                "Responda sempre no idioma: " + language),
                         Map.of("role", "user", "content", userMessage)
                 ),
-                "max_tokens", 100
+                "max_tokens", 150
         );
+
+        return callAI(body);
+    }
+
+    public String generateTitle(String userMessage, String language) {
+
+        Map<String, Object> body = Map.of(
+                "model", model,
+                "messages", List.of(
+                        Map.of("role", "system", "content",
+                                "Gere um título curto (máximo 5 palavras) para uma conversa. " +
+                                "Seja direto e não use pontuação desnecessária."),
+                        Map.of("role", "user", "content", userMessage)
+                ),
+                "max_tokens", 20
+        );
+
+        String title = callAI(body);
+
+
+        if (title == null || title.isBlank()) {
+            return "Nova Conversa";
+        }
+
+        return title.replace("\"", "").trim();
+    }
+
+    private String callAI(Map<String, Object> body) {
 
         try {
             Map<String, Object> response = webClient.post()
@@ -48,18 +77,22 @@ public class AIService {
                     .block();
 
             if (response != null && response.containsKey("choices")) {
-                List<Map<String, Object>> choices = (List<Map<String, Object>>) response.get("choices");
+                List<Map<String, Object>> choices =
+                        (List<Map<String, Object>>) response.get("choices");
+
                 if (!choices.isEmpty()) {
-                    Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
+                    Map<String, Object> message =
+                            (Map<String, Object>) choices.get(0).get("message");
+
                     return (String) message.get("content");
                 }
             }
 
-            return "Não consegui gerar uma resposta no momento.";
+            return "Não consegui gerar uma resposta.";
 
         } catch (Exception e) {
-            System.err.println("Erro na API HuggingFace: " + e.getMessage());
-            return "Erro ao conectar com a API da HuggingFace.";
+            System.err.println("Erro na API: " + e.getMessage());
+            return "Erro ao conectar com a IA.";
         }
     }
 }

@@ -33,39 +33,50 @@ public class ChatController {
     @PostMapping("/message")
     @Operation(summary = "Send message")
     public ResponseEntity<MessageResponseDTO> sendMessage(
-            @Valid @RequestBody MessageRequestDTO requestDTO) {
+        @Valid @RequestBody MessageRequestDTO requestDTO) {
 
-        User user = userService.getCurrentUser();
+    User user = userService.getCurrentUser();
 
-        Conversation conversation = chatService.getOrCreateConversation(
-                user,
-                requestDTO.getConversationId(),
+    Conversation conversation = chatService.getOrCreateConversation(
+            user,
+            requestDTO.getConversationId(),
+            requestDTO.getLanguage()
+    );
+
+    chatService.saveMessage(
+            conversation,
+            requestDTO.getMessage(),
+            "USER"
+    );
+
+    if (conversation.getTitle().equals("Nova Conversa")) {
+        String title = aiService.generateTitle(
+                requestDTO.getMessage(),
                 requestDTO.getLanguage()
         );
 
-        chatService.saveMessage(
-                conversation,
-                requestDTO.getMessage(),
-                "USER"
-        );
-        String aiResponse = aiService.generateResponse(
-                requestDTO.getMessage(),
-                requestDTO.getLanguage()
-        );
-        Message botMessage = chatService.saveMessage(
-                conversation,
-                aiResponse,
-                "BOT"
-        );
-
-        MessageResponseDTO responseDTO = new MessageResponseDTO(
-                botMessage.getContent(),
-                conversation.getId(),
-                botMessage.getTimestamp()
-        );
-
-        return ResponseEntity.ok(responseDTO);
+        chatService.updateConversationTitle(conversation, title);
     }
+
+    String aiResponse = aiService.generateResponse(
+            requestDTO.getMessage(),
+            requestDTO.getLanguage()
+    );
+
+    Message botMessage = chatService.saveMessage(
+            conversation,
+            aiResponse,
+            "BOT"
+    );
+
+    MessageResponseDTO responseDTO = new MessageResponseDTO(
+            botMessage.getContent(),
+            conversation.getId(),
+            botMessage.getTimestamp()
+    );
+
+    return ResponseEntity.ok(responseDTO);
+}
 
     @GetMapping("/conversations")
     @Operation(summary = "Get user conversations")
