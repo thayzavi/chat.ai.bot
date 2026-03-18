@@ -60,7 +60,7 @@ public class ChatController {
 
     String aiResponse = aiService.generateResponse(
             requestDTO.getMessage(),
-            requestDTO.getLanguage()
+            requestDTO.getLanguage() !=null ? requestDTO.getLanguage() : "pt-BR"
     );
 
     Message botMessage = chatService.saveMessage(

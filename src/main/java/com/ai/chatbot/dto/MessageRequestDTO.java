@@ -10,5 +10,5 @@ public class MessageRequestDTO {
 
     private Long conversationId;
 
-    private String language = "pt";
+    private String language = "pt-BR";
 }
