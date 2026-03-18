@@ -57,7 +57,7 @@ public class ChatService {
                 .collect(Collectors.toList());
     }
 
-    public  List<MessageDTO> getConversationMessages(Long conversationId) {
+    public List<MessageDTO> getConversationMessages(Long conversationId, User user) {
 
         Conversation conversation = conversationRepository
                 .findById(conversationId)
