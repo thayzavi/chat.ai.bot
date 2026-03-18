@@ -62,6 +62,10 @@ public class ChatService {
         Conversation conversation = conversationRepository
                 .findById(conversationId)
                 .orElseThrow(() -> new RuntimeException("Conversa não encontrada"));
+            
+        if (!conversation.getUser().getId().equals(user.getId())) {
+        throw new RuntimeException("Acesso negado"); 
+        }
 
         return messageRepository.findByConversationOrderByTimestampAsc(conversation)
                 .stream()

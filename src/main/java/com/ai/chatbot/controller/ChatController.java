@@ -91,14 +91,16 @@ public class ChatController {
     }
 
     @GetMapping("/conversations/{id}/messages")
-    @Operation(summary = "Get conversation messages")
-    public ResponseEntity<List<MessageDTO>> getConversationMessages(
-            @PathVariable Long id) {
+        @Operation(summary = "Get conversation messages")
+        public ResponseEntity<List<MessageDTO>> getConversationMessages(
+                @PathVariable Long id) {
+
+        User user = userService.getCurrentUser();
+
         List<MessageDTO> messages =
-                chatService.getConversationMessages(id);
+                chatService.getConversationMessages(id, user);
 
         return ResponseEntity.ok(messages);
-    }
-
+        }
 
 }
