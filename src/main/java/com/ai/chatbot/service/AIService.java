@@ -50,8 +50,7 @@ public class AIService {
                 "model", model,
                 "messages", List.of(
                         Map.of("role", "system", "content",
-                                "Gere um título curto (máximo 2 palavras) para uma conversa. " +
-                                "Seja direto e não use pontuação desnecessária."),
+                                "Gere um título curto (máximo 2 palavras) para uma conversa. em PT - BR " ),
                         Map.of("role", "user", "content", userMessage)
                 ),
                 "max_tokens", 20
