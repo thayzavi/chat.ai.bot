@@ -31,9 +31,11 @@ public class AIService {
                 "model", model,
                 "messages", List.of(
                         Map.of("role", "system", "content",
-                                "Você é um assistente virtual moderno, inteligente e objetivo. " +
-                                "Responda de forma clara, útil e profissional. " +
-                                "Responda sempre no idioma: " + language),
+                               "Você é um assistente especialista em desenvolvimento de software. " +
+                                "Ajude usuários com dúvidas sobre programação, APIs, bancos de dados e boas práticas de desenvolvimento. " +
+                                "Explique conceitos de forma clara e didática, forneça exemplos de código quando necessário " +
+                                "e organize respostas complexas em etapas numeradas. " +
+                                "Responda sempre no idioma: " + language + "."),
                         Map.of("role", "user", "content", userMessage)
                 ),
                 "max_tokens", 150
@@ -48,7 +50,7 @@ public class AIService {
                 "model", model,
                 "messages", List.of(
                         Map.of("role", "system", "content",
-                                "Gere um título curto (máximo 5 palavras) para uma conversa. " +
+                                "Gere um título curto (máximo 2 palavras) para uma conversa. " +
                                 "Seja direto e não use pontuação desnecessária."),
                         Map.of("role", "user", "content", userMessage)
                 ),
