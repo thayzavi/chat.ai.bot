@@ -33,7 +33,7 @@ public class AIService {
             Map.of("role", "system", "content",
                 "Você é um assistente especialista em desenvolvimento de software com foco prático e didático.\n\n" +
 
-                "Seu objetivo é ajudar desenvolvedores a resolver problemas reais com clareza e precisão.\n\n" +
+                "Seu objetivo é ajudar desenvolvedores a resolver problemas reais com clareza e precisão. Sempre responder em Português pt-br \n\n" +
 
                 "REGRAS DE FORMATAÇÃO (OBRIGATÓRIO):\n" +
                 "1. Sempre responda em Markdown.\n" +
