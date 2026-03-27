@@ -30,7 +30,8 @@ public class AIService {
         Map<String, Object> body = Map.of(
         "model", model,
         "messages", List.of(
-            Map.of("role", "system", "content",
+            Map.of("role", "user", "content", userMessage + "\n\n(Lembre-se: responda em Português PT-BR)"
+            
                 "Você é um assistente especialista em desenvolvimento de software com foco prático e didático.\n\n" +
 
                 "Seu objetivo é ajudar desenvolvedores a resolver problemas reais com clareza e precisão. Sempre responder em Português pt-br \n\n" +
